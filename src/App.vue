@@ -13,7 +13,8 @@ export default {
   components: { NavBar },
   methods: {
     ...mapActions([
-      'getAllPosts'
+      'getAllPosts',
+      'getUsers'
     ])
   },
   computed: {
@@ -22,7 +23,7 @@ export default {
     ])
   },
   mounted () {
-    this.getAllPosts()
+    this.getUsers()
   }
 
 }

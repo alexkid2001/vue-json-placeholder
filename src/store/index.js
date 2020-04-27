@@ -7,7 +7,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     post: '',
-    posts: []
+    posts: [],
+    users: {}
 
   },
   mutations: {
@@ -16,6 +17,9 @@ export default new Vuex.Store({
     },
     savePostsToState (state, payload) {
       this.state.posts = payload
+    },
+    saveUsersToState (state, payload) {
+      this.state.users = payload
     }
   },
   actions: {
@@ -43,6 +47,17 @@ export default new Vuex.Store({
           console.log('state.posts', this.state.posts)
         })
         .catch(err => console.error(err))
+    },
+    async getUsers ({ commit }) {
+      await axios({
+        method: 'get',
+        url: 'users'
+      })
+        .then(resp => {
+          commit('saveUsersToState', resp.data)
+          console.log('users :', resp.data)
+        })
+        .catch(err => console.error(err))
     }
 
   },
@@ -51,6 +66,9 @@ export default new Vuex.Store({
   getters: {
     postsList (state) {
       return state.posts
+    },
+    users (state) {
+      return state.users
     }
   }
 })
